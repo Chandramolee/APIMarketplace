@@ -1,0 +1,145 @@
+.api-hero {
+  padding: 3rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.hero-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.api-title-main {
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+
+.api-rating-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(234, 179, 8, 0.1);
+  color: #eab308;
+  padding: 0.5rem 1rem;
+  border-radius: 99px;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.api-description-main {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 800px;
+  margin-bottom: 2rem;
+}
+
+.api-meta {
+  display: flex;
+  gap: 1rem;
+}
+
+.meta-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255,255,255,0.05);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.api-content-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 900px) {
+  .api-content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.api-docs {
+  padding: 2.5rem;
+}
+
+.api-docs h2, .api-reviews-container h2 {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.doc-section {
+  margin-bottom: 2rem;
+}
+
+.doc-section h3 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: #c7d2fe;
+}
+
+.code-block {
+  background: #0f111a;
+  padding: 1.5rem;
+  border-radius: 8px;
+  font-family: monospace;
+  color: #a78bfa;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+
+.api-reviews-container {
+  padding: 2.5rem;
+  height: fit-content;
+}
+
+.review-form {
+  background: rgba(255,255,255,0.02);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--glass-border);
+  margin-bottom: 2rem;
+}
+
+.login-prompt {
+  background: rgba(59, 130, 246, 0.1);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.review-item {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.review-item:last-child {
+  border-bottom: none;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.review-header strong {
+  color: #e2e8f0;
+}
+
+.stars {
+  display: flex;
+  gap: 2px;
+}
+
+.review-comment {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
