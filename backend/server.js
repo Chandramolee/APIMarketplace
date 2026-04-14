@@ -15,6 +15,7 @@ app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/apis', require('./routes/apiRoutes'));
 app.use('/api/reviews', require('./routes/reviewRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/gateway', require('./routes/gatewayRoutes'));
 
 app.get('/', (req, res) => {
   res.send('API Marketplace API is running...');

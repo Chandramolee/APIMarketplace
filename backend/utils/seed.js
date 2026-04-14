@@ -85,7 +85,8 @@ const seedDatabase = async () => {
             category: category,
             exampleRequest: `GET ${version.swaggerUrl || 'https://api.example.com/'}`,
             exampleResponse: '{"status": "success"}',
-            creator: adminUser._id
+            creator: adminUser._id,
+            docsLink: apiName.includes('Adobe') ? 'https://developer.adobe.com/aem/3.7.1-pre.0/' : (info.contact?.url || info['x-origin']?.[0]?.url || 'https://api.market/docs')
           });
           categoryCounts[category]++;
         }
@@ -106,9 +107,9 @@ const seedDatabase = async () => {
       while (deficit > 0) {
         const platform = platformPrefixes[genIndex % platformPrefixes.length];
         const descriptor = descriptiveWords[genIndex % descriptiveWords.length];
-        // Unique prefix per category and index to ensure no duplicate developer across the board
-        const providerName = `${platform} - ${category} ${descriptor} Solutions ${genIndex + 1}`;
-        const apiName = `${providerName} API`;
+        // Clean name focusing on category and descriptor
+        const apiName = `${category} ${descriptor} Solutions ${genIndex + 1} API`;
+        const providerName = `${platform} - ${apiName}`; // Keep platform in provider but not in API name
         
         if (!usedProviders.has(providerName.toLowerCase()) && !usedNames.has(apiName.toLowerCase())) {
           usedProviders.add(providerName.toLowerCase());
@@ -121,7 +122,8 @@ const seedDatabase = async () => {
             category: category,
             exampleRequest: `GET https://${platform.toLowerCase().replace('.', '')}.com/api/${category.toLowerCase()}/v${genIndex + 1}/status`,
             exampleResponse: '{"message":"OK", "data":{}}',
-            creator: adminUser._id
+            creator: adminUser._id,
+            docsLink: `https://${platform.toLowerCase().replace('.', '')}.com/docs/${category.toLowerCase()}`
           });
           deficit--;
           categoryCounts[category]++;

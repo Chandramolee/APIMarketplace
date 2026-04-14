@@ -6,9 +6,12 @@ const getApis = async (req, res) => {
   
   let query = {};
   
-  // Search using $text or regex if $text doesn't work well with partials
+  // Search using regex for partial matches (e.g., typing 'a' shows results)
   if (keyword) {
-    query.$text = { $search: keyword };
+    query.$or = [
+      { name: { $regex: keyword, $options: 'i' } },
+      { description: { $regex: keyword, $options: 'i' } }
+    ];
   }
   
   if (category && category !== 'All') {
@@ -136,4 +139,14 @@ const createApi = async (req, res) => {
   }
 };
 
-module.exports = { getApis, getApiById, createApi };
+const getApiStats = async (req, res) => {
+  try {
+    const totalApis = await Api.countDocuments({});
+    res.json({ totalApis });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+module.exports = { getApis, getApiById, createApi, getApiStats };

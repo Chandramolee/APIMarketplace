@@ -2,9 +2,10 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
-import { Server, User, Star, MessageSquare, Bookmark, Key, ExternalLink } from 'lucide-react';
+import { Server, User, Star, MessageSquare, Bookmark, Key, ExternalLink, Copy, Check } from 'lucide-react';
 import toast from 'react-hot-toast';
 import './ApiDetails.css';
+import { ensureAbsoluteUrl } from '../utils/urlHelper';
 
 const ApiDetails = () => {
   const { id } = useParams();
@@ -17,6 +18,7 @@ const ApiDetails = () => {
   // Review Form state
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState('');
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const fetchApiDetails = async () => {
@@ -76,6 +78,13 @@ const ApiDetails = () => {
     }
   };
 
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(api.endpoint);
+    setCopied(true);
+    toast.success('Endpoint copied to clipboard!');
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   if (loading) return <div className="container" style={{padding: '4rem', textAlign: 'center'}}>Loading...</div>;
   if (!api) return <div className="container" style={{padding: '4rem', textAlign: 'center'}}>API not found.</div>;
 
@@ -88,20 +97,21 @@ const ApiDetails = () => {
       <div className="api-hero glass-panel">
         <div className="hero-top">
           <div>
-            <h1 className="api-title-main text-gradient">{api.name}</h1>
+            <h1 className="api-title-main text-gradient" style={{ fontFamily: "'JetBrains Mono', monospace", fontWeight: 700 }}>
+              {api.name}
+            </h1>
             <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
-              <button onClick={handleBookmark} className="btn-secondary" style={{display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.5rem 1rem', borderRadius: '4px', background: 'transparent', color: 'var(--text-primary)', border: '1px solid var(--glass-border)'}}>
-                <Bookmark size={16} /> Bookmark
-              </button>
-              <button onClick={handleSubscribe} className="btn-violet" style={{padding: '0.5rem 1.5rem'}}>
-                <Key size={16} /> Subscribe & Get Key
-              </button>
-              
               {api.docsLink && (
-                 <a href={api.docsLink} target="_blank" rel="noreferrer" className="btn-secondary" style={{display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.5rem 1rem', borderRadius: '4px', background: 'transparent', color: 'var(--accent-violet)', border: '1px solid var(--accent-violet)'}}>
-                   <ExternalLink size={16} /> Read Docs
+                 <a href={ensureAbsoluteUrl(api.docsLink)} target="_blank" rel="noreferrer" className="btn-violet" style={{display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.75rem 2rem', background: 'var(--accent-violet)', color: 'white', border: 'none', textDecoration: 'none', fontFamily: "'JetBrains Mono', monospace", borderRadius: '0'}}>
+                   Visit Official Website <ExternalLink size={18} />
                  </a>
               )}
+              <button onClick={handleSubscribe} className="btn-secondary" style={{padding: '0.5rem 1.5rem', fontFamily: "'JetBrains Mono', monospace", background: 'transparent', color: 'var(--text-secondary)', border: '1px solid var(--glass-border)'}}>
+                Get API Key
+              </button>
+              <button onClick={handleBookmark} className="btn-secondary" style={{display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.5rem 1rem', background: 'transparent', color: 'var(--text-primary)', border: '1px solid var(--glass-border)', fontFamily: "'JetBrains Mono', monospace"}}>
+                Bookmark
+              </button>
             </div>
           </div>
           <div className="api-rating-badge">
@@ -122,9 +132,37 @@ const ApiDetails = () => {
           <h2>Documentation</h2>
           
           <div className="doc-section">
-            <h3>Endpoint URL</h3>
-            <div className="code-block" style={{borderLeft: '4px solid var(--accent-primary)'}}>
-              {api.endpoint}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+              <h3 style={{ margin: 0 }}>Endpoint URL</h3>
+              <button 
+                onClick={copyToClipboard}
+                style={{ 
+                  background: 'transparent', 
+                  border: '1px solid var(--glass-border)', 
+                  color: 'var(--text-secondary)',
+                  padding: '0.4rem 0.8rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.4rem',
+                  cursor: 'pointer',
+                  fontSize: '0.8rem',
+                  fontFamily: "'JetBrains Mono', monospace"
+                }}
+              >
+                {copied ? <Check size={14} color="#10b981" /> : <Copy size={14} />}
+                {copied ? 'Copied!' : 'Copy'}
+              </button>
+            </div>
+            <div className="code-block" style={{ borderLeft: '4px solid var(--accent-primary)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <a 
+                href={ensureAbsoluteUrl(api.endpoint)} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                style={{ color: 'inherit', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', flex: 1 }}
+              >
+                {api.endpoint}
+                <ExternalLink size={14} style={{ opacity: 0.6 }} />
+              </a>
             </div>
           </div>
 
@@ -140,7 +178,7 @@ const ApiDetails = () => {
         </div>
 
         <div className="api-reviews-container glass-panel">
-          <h2><MessageSquare size={20} style={{verticalAlign: 'bottom', marginRight: '0.5rem'}}/> Community Reviews</h2>
+          <h2 style={{ fontFamily: "'JetBrains Mono', monospace" }}>Community Reviews</h2>
           
           {user ? (
             <form onSubmit={submitReview} className="review-form">
@@ -154,7 +192,7 @@ const ApiDetails = () => {
                 <label className="form-label">Comment</label>
                 <textarea className="form-input" style={{minHeight: '80px'}} value={comment} onChange={e=>setComment(e.target.value)} required />
               </div>
-              <button className="btn btn-primary" type="submit">Submit Review</button>
+              <button className="btn btn-primary btn-violet" type="submit" style={{ fontFamily: "'JetBrains Mono', monospace", border: 'none' }}>Submit Review</button>
             </form>
           ) : (
             <div className="login-prompt">Please <a href="/auth" style={{color: 'var(--accent-primary)', textDecoration: 'underline'}}>log in</a> to leave a review.</div>

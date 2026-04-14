@@ -17,44 +17,30 @@ const Navbar = () => {
     <nav className="navbar-openapi">
       <div className="container nav-container">
         
-        {/* Left Side: Logo & Main Nav */}
         <div className="nav-left">
-          <Link to="/" className="nav-logo">
-            <Server size={24} className="logo-icon" />
-            <span className="logo-text">openapi</span>
+          <Link to="/" className="nav-logo" style={{ fontFamily: "'JetBrains Mono', monospace", color: 'var(--accent-violet)' }}>
+            <span className="logo-text">API Hub</span>
           </Link>
 
-          <div className="nav-links">
-            <div className="nav-item">About us <ChevronDown size={14}/></div>
-            <div className="nav-item">Products <ChevronDown size={14}/></div>
-            <div className="nav-item">Solutions <ChevronDown size={14}/></div>
-            <Link to="/" className="nav-item">Pricing</Link>
-            <div className="nav-item">Resources <ChevronDown size={14}/></div>
-            <div className="nav-item">Developer <ChevronDown size={14}/></div>
-            <div className="nav-item">Partner <ChevronDown size={14}/></div>
+          <div className="nav-links" style={{ fontFamily: "'JetBrains Mono', monospace" }}>
+            {/* Removed unused tabs */}
           </div>
         </div>
 
-        {/* Right Side: Utils & Auth */}
+        {/* Right Side: Auth */}
         <div className="nav-right">
-          <Search size={18} className="search-icon-nav" />
-          <div className="nav-utils">
-            <span className="lang-select">English <ChevronDown size={14}/></span>
-            <span className="contact">Contact Us</span>
-          </div>
           
-          {user ? (
-             <div className="user-menu">
+           {user ? (
+             <div className="user-menu" style={{ fontFamily: "'JetBrains Mono', monospace" }}>
                <span className="user-greeting">
-                 <User size={18}/> 
-                 <Link to="/dashboard" style={{color: 'inherit', textDecoration: 'none'}}>{user.name}</Link>
+                 <Link to="/dashboard" style={{color: 'var(--accent-violet)', textDecoration: 'none'}}>Dashboard [{user.name}]</Link>
                </span>
-               <button onClick={handleLogout} className="logout-btn"><LogOut size={18} /></button>
+               <button onClick={handleLogout} className="logout-btn" style={{ background: 'transparent', border: '1px solid var(--glass-border)', color: 'var(--text-secondary)' }}>Logout</button>
              </div>
           ) : (
-            <div className="auth-buttons">
-              <Link to="/auth" className="login-link">LOGIN</Link>
-              <Link to="/auth" className="signup-btn">SIGN UP</Link>
+            <div className="auth-buttons" style={{ fontFamily: "'JetBrains Mono', monospace" }}>
+              <Link to="/login" className="login-link">Login</Link>
+              <Link to="/signup" className="btn-violet" style={{ textDecoration: 'none' }}>Sign Up</Link>
             </div>
           )}
         </div>

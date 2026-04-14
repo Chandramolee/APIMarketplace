@@ -5,7 +5,8 @@ import { Toaster } from 'react-hot-toast';
 
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
-import LoginRegister from './pages/LoginRegister';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 import SubmitApi from './pages/SubmitApi';
 import ApiDetails from './pages/ApiDetails';
 import Dashboard from './pages/Dashboard';
@@ -19,7 +20,8 @@ function App() {
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/auth" element={<LoginRegister />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
             <Route path="/submit" element={<SubmitApi />} />
             <Route path="/api/:id" element={<ApiDetails />} />
             <Route path="/dashboard" element={<Dashboard />} />

@@ -71,13 +71,15 @@ const Dashboard = () => {
   return (
     <div className="container animate-fade-in" style={{ paddingBottom: '4rem' }}>
       <div className="dashboard-header glass-panel">
-        <h1 className="text-gradient">Welcome back, {user.name}</h1>
+        <h1 className="text-gradient" style={{ fontFamily: "'JetBrains Mono', monospace", fontWeight: 700 }}>
+          Welcome back, {user.name}
+        </h1>
         <p style={{color: 'var(--text-secondary)'}}>Here is your API management center and resource overview.</p>
       </div>
 
       <div className="dashboard-grid">
         <div className="dash-card glass-panel" style={{gridColumn: '1 / -1'}}>
-          <h2>Weekly API Usage (Mock)</h2>
+          <h2 style={{ fontFamily: "'JetBrains Mono', monospace" }}>Weekly API Usage (Mock)</h2>
           <div style={{ height: '300px', width: '100%', marginTop: '1.5rem' }}>
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={mockUsageData}>
@@ -92,7 +94,7 @@ const Dashboard = () => {
         </div>
 
         <div className="dash-card glass-panel">
-          <h2><Key size={20} style={{verticalAlign: 'bottom', marginRight: '0.5rem'}}/> Subscribed API Keys</h2>
+          <h2 style={{ fontFamily: "'JetBrains Mono', monospace" }}>Subscribed API Keys</h2>
           {stats.keys && stats.keys.length > 0 ? (
             <div className="item-list">
               {stats.keys.map(k => (
@@ -118,7 +120,7 @@ const Dashboard = () => {
         </div>
 
         <div className="dash-card glass-panel">
-          <h2><Bookmark size={20} style={{verticalAlign: 'bottom', marginRight: '0.5rem'}}/> Bookmarked APIs</h2>
+          <h2 style={{ fontFamily: "'JetBrains Mono', monospace" }}>Bookmarked APIs</h2>
           {stats.bookmarks && stats.bookmarks.length > 0 ? (
             <div className="item-list">
               {stats.bookmarks.map(api => (
@@ -134,7 +136,7 @@ const Dashboard = () => {
         </div>
 
         <div className="dash-card glass-panel">
-          <h2><MessageSquare size={20} style={{verticalAlign: 'bottom', marginRight: '0.5rem'}}/> Your Reviews</h2>
+          <h2 style={{ fontFamily: "'JetBrains Mono', monospace" }}>Your Reviews</h2>
           {stats.reviews && stats.reviews.length > 0 ? (
             <div className="item-list">
               {stats.reviews.map(rev => (

@@ -1,24 +1,27 @@
-import React, { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useContext, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import './LoginRegister.css';
 
-const LoginRegister = () => {
-  const [isLogin, setIsLogin] = useState(true);
+const Signup = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   
-  const { login, register } = useContext(AuthContext);
+  const { user, register } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
-    const res = isLogin 
-      ? await login(email, password)
-      : await register(name, email, password);
+    const res = await register(name, email, password);
       
     if (res.success) {
       navigate('/');
@@ -30,23 +33,23 @@ const LoginRegister = () => {
   return (
     <div className="auth-page container animate-fade-in">
       <div className="auth-box glass-panel">
-        <h2 className="auth-title">{isLogin ? 'Welcome Back' : 'Create an Account'}</h2>
+        <h2 className="auth-title" style={{ fontFamily: "'JetBrains Mono', monospace" }}>
+          Create an Account
+        </h2>
         
         {error && <div className="auth-error">{error}</div>}
 
         <form onSubmit={handleSubmit}>
-          {!isLogin && (
-            <div className="form-group">
-              <label className="form-label">Name</label>
-              <input 
-                type="text" 
-                className="form-input" 
-                required 
-                value={name} 
-                onChange={(e) => setName(e.target.value)} 
-              />
-            </div>
-          )}
+          <div className="form-group">
+            <label className="form-label">Name</label>
+            <input 
+              type="text" 
+              className="form-input" 
+              required 
+              value={name} 
+              onChange={(e) => setName(e.target.value)} 
+            />
+          </div>
           
           <div className="form-group">
             <label className="form-label">Email Address</label>
@@ -70,22 +73,22 @@ const LoginRegister = () => {
             />
           </div>
           
-          <button type="submit" className="btn btn-primary auth-submit">
-            {isLogin ? 'Sign In' : 'Register'}
+          <button type="submit" className="btn btn-primary auth-submit btn-violet" style={{ fontFamily: "'JetBrains Mono', monospace", border: 'none' }}>
+            Register
           </button>
         </form>
 
         <div className="auth-toggle">
           <span className="text-secondary">
-            {isLogin ? "Don't have an account? " : "Already have an account? "}
+            Already have an account? 
           </span>
-          <button className="toggle-btn" type="button" onClick={() => setIsLogin(!isLogin)}>
-            {isLogin ? 'Sign Up' : 'Log In'}
-          </button>
+          <Link to="/login" className="toggle-btn" style={{ textDecoration: 'none', marginLeft: '0.5rem' }}>
+            Log In
+          </Link>
         </div>
       </div>
     </div>
   );
 };
 
-export default LoginRegister;
+export default Signup;

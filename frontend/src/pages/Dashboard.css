@@ -50,10 +50,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: var(--bg-secondary);
+  background: var(--bg-input);
   padding: 1rem;
-  border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
 }
 
 .key-actions {
@@ -63,12 +62,12 @@
 
 .btn-small {
   padding: 0.4rem 0.8rem;
-  border-radius: 4px;
   font-size: 0.8rem;
-  font-weight: 600;
-  border: none;
+  font-weight: 500;
+  border: 1px solid var(--glass-border);
   cursor: pointer;
-  color: white;
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
 }
 
 .bg-blue {

@@ -120,7 +120,7 @@
 /* Search API Section */
 .search-api-section {
   padding: 6rem 0;
-  background-color: #17103a; 
+  background-color: var(--bg-secondary); 
 }
 
 .search-header {
@@ -150,7 +150,8 @@
   position: relative;
   display: flex;
   align-items: center;
-  background: white;
+  background: var(--bg-input);
+  border: 1px solid var(--glass-border);
   border-radius: 4px;
   overflow: hidden;
 }
@@ -160,14 +161,15 @@
   padding: 1.2rem 1rem 1.2rem 3rem;
   border: none;
   font-size: 1rem;
-  color: #1a1a1a;
+  background: var(--bg-input);
+  color: var(--text-primary);
   font-weight: 500;
 }
 
 .search-icon-input {
   position: absolute;
   left: 1rem;
-  color: #666;
+  color: var(--text-secondary);
 }
 
 .search-btn {

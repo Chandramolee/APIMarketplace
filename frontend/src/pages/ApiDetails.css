@@ -20,11 +20,11 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(234, 179, 8, 0.1);
-  color: #eab308;
+  background: var(--bg-primary);
+  color: var(--accent-violet);
+  border: 1px solid var(--glass-border);
   padding: 0.5rem 1rem;
-  border-radius: 99px;
-  font-weight: 700;
+  font-weight: 500;
   font-size: 1.1rem;
 }
 
@@ -44,9 +44,9 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(255,255,255,0.05);
+  background: var(--bg-input);
   padding: 0.5rem 1rem;
-  border-radius: 8px;
+  border: 1px solid var(--glass-border);
   font-size: 0.9rem;
 }
 
@@ -84,14 +84,18 @@
 }
 
 .code-block {
-  background: #0f111a;
+  background: var(--bg-input);
   padding: 1.5rem;
-  border-radius: 8px;
-  font-family: monospace;
-  color: #a78bfa;
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+  border: 1px solid var(--glass-border);
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-secondary);
   word-break: break-all;
   white-space: pre-wrap;
+}
+
+.code-block a:hover {
+  text-decoration: underline !important;
+  color: var(--text-primary) !important;
 }
 
 .api-reviews-container {
@@ -100,9 +104,8 @@
 }
 
 .review-form {
-  background: rgba(255,255,255,0.02);
+  background: var(--bg-primary);
   padding: 1.5rem;
-  border-radius: 8px;
   border: 1px solid var(--glass-border);
   margin-bottom: 2rem;
 }
